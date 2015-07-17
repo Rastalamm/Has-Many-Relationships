@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users
 (
   id serial NOT NULL,
   username varchar(90) NOT NULL,
-  first_name varchar(90) DEFAULT NULL NOT NULL,
+  first_name varchar(90) DEFAULT NULL,
   last_name varchar(90) DEFAULT NULL,
   created_at timestamp with time zone DEFAULT now() NOT NULL,
   updated_at timestamp with time zone DEFAULT now() NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS posts
   updated_at timestamp with time zone DEFAULT now() NOT NULL,
 
   users_id integer NOT NULL,
-  CONSTRAINT users_id_fk FOREIGN KEY (users_id) REFERENCES users (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT users_id_fk FOREIGN KEY (users_id) REFERENCES users (id) MATCH FULL ON UPDATE CASCADE ON DELETE CASCADE,
 
   PRIMARY KEY (id)
 );
@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS comments
   updated_at timestamp with time zone DEFAULT now() NOT NULL,
   users_id integer NOT NULL,
   posts_id integer NOT NULL,
-  CONSTRAINT users_id_fk FOREIGN KEY (users_id) REFERENCES users (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE,
-  CONSTRAINT posts_id_fk FOREIGN KEY (posts_id) REFERENCES posts (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT users_id_fk FOREIGN KEY (users_id) REFERENCES users (id) MATCH FULL ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT posts_id_fk FOREIGN KEY (posts_id) REFERENCES posts (id) MATCH FULL ON UPDATE CASCADE ON DELETE CASCADE,
 
   PRIMARY KEY (id)
 );

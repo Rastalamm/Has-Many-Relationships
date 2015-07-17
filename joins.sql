@@ -82,14 +82,39 @@ SELECT
 users.first_name AS "post_author_first_name",
 users.last_name AS "post_author_last_name",
 posts.title AS "post_title",
-users.username AS "comment_author_username",
+comment_users.username AS "comment_author_username",
 comments.body AS "comment_body"
 FROM users
 INNER JOIN posts
 ON users.id = posts.users_id
 INNER JOIN comments
-ON users.id = comments.users_id
+ON posts.id = comments.posts_id
+INNER JOIN users comment_users
+ON comment_users.id = comments.id
 WHERE (comments.body LIKE '%SSL%' OR comments.body LIKE '%firewall%') AND posts.content LIKE '%nemo%';
+
+-- Johns code
+-- select
+-- post_users.first_name as post_author_first_name,
+-- post_users.last_name as post_author_last_name,
+-- posts.title as post_title,
+-- comment_users.username as comment_author_username,
+-- comments.body as comment_body
+
+-- from users post_users
+--   inner join posts
+--   on posts.user_id = post_users.id
+
+--   inner join comments
+--   on comments.post_id = posts.id
+
+--   inner join users comment_users
+--   on comment_users.id = comments.id
+
+--   where (comments.body like '%SSL%' or comments.body like '%firewall%')
+--   and posts.content like '%nemo%';
+
+
 
 -- 101 ssl & nemo
 -- 96 FIREWALL & nemo
@@ -97,14 +122,14 @@ WHERE (comments.body LIKE '%SSL%' OR comments.body LIKE '%firewall%') AND posts.
 
 --Additional Queries
 
---1 19604 WRONG
-SELECT posts.users_id, posts.title, users.id, comments.users_id
-FROM posts
+--1 0
+SELECT posts.id, posts.title, users.id
+FROM comments
+INNER JOIN posts
+ON (comments.posts_id = posts.id)
 INNER JOIN users
-ON users.id = posts.users_id
-INNER JOIN comments
-ON users.id = comments.users_id
-WHERE comments.users_id = posts.users_id AND comments.users_id = users.id;
+ON (posts.users_id = users.id)
+WHERE comments.users_id = users.id;
 
 
 --2 27 instead of 25
