@@ -137,9 +137,11 @@ SELECT count(*)
 FROM comments
 INNER JOIN posts
 ON posts.id = comments.posts_id
-WHERE posts.created_at > 'July 14, 2015 00:00:00+00';
+WHERE posts.created_at > 'July 14 2015 00:00:00-10';
 
 --3 -337 DONE
-SELECT count(*)
-FROM comments
+SELECT users.*
+FROM users
+INNER JOIN comments
+ON users.id = comments.users_id
 WHERE comments.body LIKE '%programming%';
