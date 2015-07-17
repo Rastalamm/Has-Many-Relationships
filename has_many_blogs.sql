@@ -42,19 +42,7 @@ CREATE TABLE IF NOT EXISTS comments
   PRIMARY KEY (id)
 );
 
-
 -- CONSTRAINT user_id_fk FOREIGN KEY (user_id) REFERENCES user (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE,
 -- CONSTRAINT posts_id_fk FOREIGN KEY (posts_id) REFERENCES posts (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE,
 
 \i ~/Devleague/Has-Many-Relationships/scripts/blog_data.sql
-
-SELECT * FROM users;
-
-SELECT * FROM posts WHERE users_id = 100;
-
-SELECT posts.*, users.first_name, users.last_name
-FROM posts
-INNER JOIN users
-ON posts.users_id = users.id
-WHERE posts.users_id = 200;
-
