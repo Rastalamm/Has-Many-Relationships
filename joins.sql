@@ -77,7 +77,7 @@ INNER JOIN comments
 ON posts.id = comments.posts_id
 WHERE comments.body LIKE '%SSL%' AND posts.content LIKE '%dolorum%';
 
---13 194
+--13 194 instead of 197
 SELECT
 users.first_name AS "post_author_first_name",
 users.last_name AS "post_author_last_name",
@@ -91,29 +91,28 @@ INNER JOIN comments
 ON users.id = comments.users_id
 WHERE (comments.body LIKE '%SSL%' OR comments.body LIKE '%firewall%') AND posts.content LIKE '%nemo%';
 
-
 -- 101 ssl & nemo
 -- 96 FIREWALL & nemo
-
 -- 194 combined
 
---Additioanl Queries
+--Additional Queries
 
---1
-SELECT posts.id, posts.title, users.id
+--1 19604 WRONG
+SELECT posts.users_id, posts.title, users.id, comments.users_id
 FROM posts
 INNER JOIN users
 ON users.id = posts.users_id
 INNER JOIN comments
 ON users.id = comments.users_id
-WHERE comments.users_id = posts.users_id;
+WHERE comments.users_id = posts.users_id AND comments.users_id = users.id;
+
 
 --2 27 instead of 25
 SELECT count(*)
 FROM comments
 INNER JOIN posts
 ON posts.id = comments.posts_id
-WHERE posts.created_at > 'July 14, 2015';
+WHERE posts.created_at > 'July 14, 2015 00:00:00+00';
 
 --3 -337 DONE
 SELECT count(*)
